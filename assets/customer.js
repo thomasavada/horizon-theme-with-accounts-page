@@ -101,7 +101,14 @@ class CustomerAddresses {
   }
 
   _toggleExpanded(target) {
-    target.setAttribute(attributes.expanded, (target.getAttribute(attributes.expanded) === 'false').toString());
+    const isExpanded = target.getAttribute(attributes.expanded) === 'true';
+    target.setAttribute(attributes.expanded, (!isExpanded).toString());
+
+    // Also toggle a class on the parent for better browser support
+    const parent = target.closest(selectors.addressContainer);
+    if (parent) {
+      parent.classList.toggle('address-form-open', !isExpanded);
+    }
   }
 
   _handleAddEditButtonClick = ({ currentTarget }) => {
@@ -121,6 +128,3 @@ class CustomerAddresses {
     }
   };
 }
-
-// Initialize when DOM is ready
-const customerAddresses = new CustomerAddresses();
