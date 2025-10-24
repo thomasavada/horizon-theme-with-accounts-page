@@ -30,7 +30,7 @@
     {%- form 'recover_customer_password' -%}
       {% assign recover_success = form.posted_successfully? %}
       <div class="field">
-        <input
+        <input class="field__input"
           type="email"
           value=""
           name="email"
@@ -45,7 +45,7 @@
           {% endif %}
           placeholder="{{ 'customer.login_page.email' | t }}"
         >
-        <label for="RecoverEmail">
+        <label class="field__label" for="RecoverEmail">
           {{ 'customer.login_page.email' | t }}
         </label>
       </div>
@@ -58,7 +58,7 @@
         </small>
       {%- endif -%}
 
-      <button>
+      <button class="button button--primary">
         {{ 'customer.login_page.submit' | t }}
       </button>
 
@@ -105,7 +105,7 @@
       {%- endif -%}
 
       <div class="field">
-        <input
+        <input class="field__input"
           type="email"
           name="customer[email]"
           id="CustomerEmail"
@@ -117,14 +117,14 @@
           {% endif %}
           placeholder="{{ 'customer.login_page.email' | t }}"
         >
-        <label for="CustomerEmail">
+        <label class="field__label" for="CustomerEmail">
           {{ 'customer.login_page.email' | t }}
         </label>
       </div>
 
       {%- if form.password_needed -%}
         <div class="field">
-          <input
+          <input class="field__input"
             type="password"
             value=""
             name="customer[password]"
@@ -135,7 +135,7 @@
             {% endif %}
             placeholder="{{ 'customer.login_page.password' | t }}"
           >
-          <label for="CustomerPassword">
+          <label class="field__label" for="CustomerPassword">
             {{ 'customer.login_page.password' | t }}
           </label>
         </div>
@@ -145,7 +145,7 @@
         </a>
       {%- endif -%}
 
-      <button>
+      <button class="button button--primary">
         {{ 'customer.login_page.sign_in' | t }}
       </button>
 
@@ -161,7 +161,7 @@
       <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
 
       {%- form 'guest_login' -%}
-        <button>
+        <button class="button button--primary">
           {{ 'customer.login_page.guest_continue' | t }}
         </button>
       {%- endform -%}

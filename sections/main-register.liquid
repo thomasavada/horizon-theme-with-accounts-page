@@ -43,6 +43,7 @@
     {%- endif -%}
     <div class="field">
       <input
+        class="field__input"
         type="text"
         name="customer[first_name]"
         id="RegisterForm-FirstName"
@@ -52,12 +53,13 @@
         autocomplete="given-name"
         placeholder="{{ 'customer.register.first_name' | t }}"
       >
-      <label for="RegisterForm-FirstName">
+      <label class="field__label" for="RegisterForm-FirstName">
         {{ 'customer.register.first_name' | t }}
       </label>
     </div>
     <div class="field">
       <input
+        class="field__input"
         type="text"
         name="customer[last_name]"
         id="RegisterForm-LastName"
@@ -67,12 +69,13 @@
         autocomplete="family-name"
         placeholder="{{ 'customer.register.last_name' | t }}"
       >
-      <label for="RegisterForm-LastName">
+      <label class="field__label" for="RegisterForm-LastName">
         {{ 'customer.register.last_name' | t }}
       </label>
     </div>
     <div class="field">
       <input
+        class="field__input"
         type="email"
         name="customer[email]"
         id="RegisterForm-email"
@@ -89,7 +92,7 @@
         {% endif %}
         placeholder="{{ 'customer.register.email' | t }}"
       >
-      <label for="RegisterForm-email">
+      <label class="field__label" for="RegisterForm-email">
         {{ 'customer.register.email' | t }}
       </label>
     </div>
@@ -104,6 +107,7 @@
     {%- endif -%}
     <div class="field">
       <input
+        class="field__input"
         type="password"
         name="customer[password]"
         id="RegisterForm-password"
@@ -114,7 +118,7 @@
         {% endif %}
         placeholder="{{ 'customer.register.password' | t }}"
       >
-      <label for="RegisterForm-password">
+      <label class="field__label" for="RegisterForm-password">
         {{ 'customer.register.password' | t }}
       </label>
     </div>
@@ -127,7 +131,7 @@
         {{ form.errors.messages.password }}.
       </span>
     {%- endif -%}
-    <button>
+    <button class="button button--primary">
       {{ 'customer.register.submit' | t }}
     </button>
   {%- endform -%}

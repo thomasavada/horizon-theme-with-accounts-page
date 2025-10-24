@@ -46,7 +46,7 @@
     {%- endif -%}
 
     <div class="field">
-      <input
+      <input class="field__input"
         type="password"
         name="customer[password]"
         id="password"
@@ -57,7 +57,7 @@
           aria-describedby="password-error"
         {% endif %}
       >
-      <label for="password">
+      <label class="field__label" for="password">
         {{ 'customer.activate_account.password' | t }}
       </label>
       {%- if form.errors contains 'password' -%}
@@ -72,7 +72,7 @@
     </div>
 
     <div class="field">
-      <input
+      <input class="field__input"
         type="password"
         name="customer[password_confirmation]"
         id="password_confirmation"
@@ -83,7 +83,7 @@
           aria-describedby="password_confirmation-error"
         {% endif %}
       >
-      <label for="password_confirmation">
+      <label class="field__label" for="password_confirmation">
         {{ 'customer.activate_account.password_confirm' | t }}
       </label>
       {%- if form.errors contains 'password_confirmation' -%}
@@ -97,10 +97,10 @@
       {%- endif -%}
     </div>
 
-    <button>
+    <button class="button button--primary">
       {{ 'customer.activate_account.submit' | t }}
     </button>
-    <button name="decline">
+    <button class="button button--primary" name="decline">
       {{ 'customer.activate_account.cancel' | t }}
     </button>
   {%- endform -%}
