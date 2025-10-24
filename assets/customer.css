@@ -492,6 +492,8 @@
   box-shadow: 0 0 0 0.1rem rgba(var(--color-link), 0.2);
   border: 0.1rem solid transparent;
   font-size: 1.2rem;
+  display: inline-block;
+  margin-left: -1.5rem;
 }
 
 .account table td:first-of-type a:hover {
@@ -657,24 +659,60 @@
 }
 
 /* Addresses */
+.addresses {
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.addresses > h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.addresses > a {
+  display: block;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-decoration: underline;
+}
+
+.addresses > div[data-address] {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
 .addresses li > button {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin: 0;
+  background-color: transparent;
+  color: rgb(var(--color-foreground));
+  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  width: auto;
+  padding: 1rem 2rem;
 }
 
-.addresses li > button + button,
-.addresses form button + button {
-  margin-top: 0rem;
+.addresses li > button:hover {
+  border-color: rgba(var(--color-foreground), 0.4);
 }
 
-@media screen and (min-width: 750px) {
-  .addresses li > button:first-of-type {
-    margin-top: 3rem;
-  }
+.addresses li > button + button {
+  margin-top: 0;
+}
+
+.addresses li .address-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .addresses form button:first-of-type {
   margin-right: 1rem;
+}
+
+.addresses form button {
+  background-color: transparent;
+  color: rgb(var(--color-foreground));
+  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
 }
 
 label[for='AddressCountryNew'],
@@ -697,11 +735,35 @@ label[for='AddressProvinceNew'] {
 .addresses ul {
   list-style: none;
   padding-left: 0;
-  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 120rem;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+
+@media screen and (min-width: 750px) {
+  .addresses ul {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
 }
 
 li[data-address] {
-  margin-top: 5rem;
+  background: var(--color-background);
+  border: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  border-radius: var(--style-border-radius-inputs);
+  padding: 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+li[data-address]:hover {
+  box-shadow: 0 0.4rem 1.2rem rgba(var(--color-foreground), 0.08);
+  transform: translateY(-0.2rem);
 }
 
 .addresses [aria-expanded='false'] ~ div[id] {
@@ -718,14 +780,21 @@ li[data-address] {
 
 li[data-address] > h2 {
   text-align: center;
-  font-size: calc(var(--font-heading-scale) * 1.8rem);
-  margin-bottom: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-@media only screen and (min-width: 750px) {
-  li[data-address] > h2 {
-    font-size: calc(var(--font-heading-scale) * 2.2rem);
-  }
+.addresses .address-info {
+  flex-grow: 1;
+  margin: 0;
+}
+
+.addresses .address-info p {
+  margin: 0.25rem 0;
+  line-height: 1.6;
 }
 
 .addresses ul p {
