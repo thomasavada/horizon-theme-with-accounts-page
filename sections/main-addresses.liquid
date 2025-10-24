@@ -100,10 +100,10 @@
             >
             <label class="field__label" for="AddressCityNew">{{ 'customer.addresses.city' | t }}</label>
           </div>
-          <div>
-            <label class="field__label" for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
+          <div class="field">
             <div class="select">
               <select
+                class="field__input"
                 id="AddressCountryNew"
                 name="address[country]"
                 data-default="{{ form.country }}"
@@ -115,11 +115,12 @@
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </span>
             </div>
+            <label class="field__label" for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
           </div>
-          <div id="AddressProvinceContainerNew" style="display: none">
-            <label class="field__label" for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
+          <div id="AddressProvinceContainerNew" class="field" style="display: none">
             <div class="select">
               <select
+                class="field__input"
                 id="AddressProvinceNew"
                 name="address[province]"
                 data-default="{{ form.province }}"
@@ -129,6 +130,7 @@
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </span>
             </div>
+            <label class="field__label" for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
           </div>
           <div class="field">
             <input class="field__input"
@@ -159,7 +161,7 @@
           </div>
           <div>
             <button class="button button--primary">{{ 'customer.addresses.add' | t }}</button>
-            <button class="button button--primary" type="reset">{{ 'customer.addresses.cancel' | t }}</button>
+            <button class="button-secondary" type="reset">{{ 'customer.addresses.cancel' | t }}</button>
           </div>
         {%- endform -%}
       </div>
@@ -175,7 +177,7 @@
             {{ address | format_address }}
           </div>
           <div class="address-buttons">
-            <button class="button button--primary"
+            <button class="button-secondary"
               type="button"
               id="EditFormButton_{{ address.id }}"
               aria-label="{{ 'customer.addresses.edit_address' | t }} {{ forloop.index }}"
@@ -185,7 +187,7 @@
             >
               {{ 'customer.addresses.edit' | t }}
             </button>
-            <button class="button button--primary"
+            <button class="button-secondary"
               type="button"
               aria-label="{{ 'customer.addresses.delete' | t }} {{ forloop.index }}"
               data-target="{{ address.url }}"
@@ -263,12 +265,10 @@
                 >
                 <label class="field__label" for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
               </div>
-              <div>
-                <label class="field__label" for="AddressCountry_{{ form.id }}">
-                  {{ 'customer.addresses.country' | t }}
-                </label>
+              <div class="field">
                 <div class="select">
                   <select
+                    class="field__input"
                     id="AddressCountry_{{ form.id }}"
                     name="address[country]"
                     data-address-country-select
@@ -282,13 +282,14 @@
                     {{- 'icon-caret.svg' | inline_asset_content -}}
                   </span>
                 </div>
-              </div>
-              <div id="AddressProvinceContainer_{{ form.id }}" style="display:none;">
-                <label class="field__label" for="AddressProvince_{{ form.id }}">
-                  {{ 'customer.addresses.province' | t }}
+                <label class="field__label" for="AddressCountry_{{ form.id }}">
+                  {{ 'customer.addresses.country' | t }}
                 </label>
+              </div>
+              <div id="AddressProvinceContainer_{{ form.id }}" class="field" style="display:none;">
                 <div class="select">
                   <select
+                    class="field__input"
                     id="AddressProvince_{{ form.id }}"
                     name="address[province]"
                     data-default="{{ form.province }}"
@@ -298,6 +299,9 @@
                     {{- 'icon-caret.svg' | inline_asset_content -}}
                   </span>
                 </div>
+                <label class="field__label" for="AddressProvince_{{ form.id }}">
+                  {{ 'customer.addresses.province' | t }}
+                </label>
               </div>
               <div class="field">
                 <input class="field__input"
@@ -330,7 +334,7 @@
               </div>
               <div>
                 <button class="button button--primary">{{ 'customer.addresses.update' | t }}</button>
-                <button class="button button--primary" type="reset">{{ 'customer.addresses.cancel' | t }}</button>
+                <button class="button-secondary" type="reset">{{ 'customer.addresses.cancel' | t }}</button>
               </div>
             {%- endform -%}
           </div>

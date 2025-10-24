@@ -390,9 +390,7 @@
   margin-bottom: 0;
 }
 
-.activate button[name='decline'],
-.addresses li > button,
-.addresses form button[type] {
+.activate button[name='decline'] {
   background-color: rgba(var(--color-background), var(--alpha-button-background));
   color: rgb(var(--color-link));
 }
@@ -704,26 +702,6 @@
   margin-bottom: 2rem;
 }
 
-.addresses li > button,
-.addresses .address-buttons button {
-  margin: 0 !important;
-  background-color: transparent !important;
-  color: rgb(var(--color-foreground)) !important;
-  border: 0.1rem solid rgba(var(--color-foreground), 0.2) !important;
-  width: auto !important;
-  padding: 1rem 2rem !important;
-  flex: 0 1 auto;
-}
-
-.addresses li > button:hover,
-.addresses .address-buttons button:hover {
-  border-color: rgba(var(--color-foreground), 0.4) !important;
-  background-color: rgba(var(--color-foreground), 0.05) !important;
-}
-
-.addresses li > button + button {
-  margin-top: 0;
-}
 
 .addresses li .address-buttons {
   display: flex;
@@ -733,33 +711,16 @@
   margin-top: auto;
 }
 
+.addresses form button {
+  width: auto;
+  margin: 1rem 0.5rem 0 0;
+}
+
 .addresses form button:first-of-type {
   margin-right: 1rem;
 }
 
-.addresses form button {
-  background-color: transparent !important;
-  color: rgb(var(--color-foreground)) !important;
-  border: 0.1rem solid rgba(var(--color-foreground), 0.2) !important;
-  width: auto !important;
-  margin: 1rem 0.5rem 0 0 !important;
-}
-
-.addresses form button:hover {
-  border-color: rgba(var(--color-foreground), 0.4) !important;
-  background-color: rgba(var(--color-foreground), 0.05) !important;
-}
-
-label[for='AddressCountryNew'],
-label[for='AddressProvinceNew'],
-label[for^='AddressCountry'],
-label[for^='AddressProvince'] {
-  display: block;
-  font-size: 1.4rem;
-  margin-bottom: 0.6rem;
-  color: rgb(var(--color-foreground));
-  font-weight: 500;
-}
+/* These labels are now handled by the field__label system */
 
 .addresses form {
   display: flex;
@@ -780,28 +741,24 @@ label[for^='AddressProvince'] {
   left: var(--input-padding-x);
   top: 50%;
   transform: translateY(-50%);
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease;
   pointer-events: none;
   color: rgb(var(--color-input-text-rgb) / var(--opacity-80));
   font-size: var(--font-paragraph--size);
+  opacity: 1;
 }
 
-.addresses .select {
+.addresses .field .select {
   position: relative;
+  width: 100%;
 }
 
-.addresses .select select {
+.addresses .field .select select.field__input {
   width: 100%;
-  padding: var(--input-padding);
-  border-radius: var(--style-border-radius-inputs);
-  border: none;
-  background-color: var(--color-input-background);
-  color: var(--color-input-text);
-  box-shadow: var(--input-box-shadow);
   appearance: none;
 }
 
-.addresses .select .svg-wrapper {
+.addresses .field .select .svg-wrapper {
   position: absolute;
   right: 1.5rem;
   top: 50%;
@@ -809,6 +766,12 @@ label[for^='AddressProvince'] {
   pointer-events: none;
   width: 1rem;
   height: 1rem;
+}
+
+/* Hide label when select has a value */
+.addresses .field:has(select.field__input:not([value=""])) .field__label,
+.addresses .field:has(select.field__input option:checked:not([value=""])) .field__label {
+  opacity: 0;
 }
 
 .addresses ul {
@@ -888,33 +851,19 @@ li[data-address] div[id] .field {
   position: relative;
 }
 
-/* Floating label behavior for address forms */
+/* Hide label when input has content - like contact form */
 .addresses .field:not(.field--checkbox):focus-within .field__label,
 .addresses .field:not(.field--checkbox).field--has-value .field__label,
 .addresses .field:not(.field--checkbox) .field__input:focus + .field__label,
 .addresses .field:not(.field--checkbox) .field__input:not(:placeholder-shown) + .field__label,
 .addresses .field:not(.field--checkbox) .field__input:-webkit-autofill + .field__label {
-  top: -0.2rem;
-  font-size: 1.2rem;
-  transform: translateY(-100%);
-  padding-bottom: 0.4rem;
-  background-color: var(--color-background);
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  left: calc(var(--input-padding-x) - 0.4rem);
+  opacity: 0;
 }
 
 /* For browsers that support :has() */
 .addresses .field:not(.field--checkbox):has(.field__input:not(:placeholder-shown)) .field__label,
 .addresses .field:not(.field--checkbox):has(.field__input:-webkit-autofill) .field__label {
-  top: -0.2rem;
-  font-size: 1.2rem;
-  transform: translateY(-100%);
-  padding-bottom: 0.4rem;
-  background-color: var(--color-background);
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  left: calc(var(--input-padding-x) - 0.4rem);
+  opacity: 0;
 }
 
 li[data-address] div[id] button {

@@ -69,10 +69,24 @@ class CustomerAddresses {
 
     const checkInput = (input) => {
       const field = input.closest('.field');
-      if (input.value && input.value.trim() !== '') {
-        field?.classList.add('field--has-value');
+
+      // For select elements, check if the selected option has a value
+      if (input.tagName === 'SELECT') {
+        const selectedOption = input.options[input.selectedIndex];
+        const hasValue = selectedOption && selectedOption.value && selectedOption.value.trim() !== '';
+
+        if (hasValue) {
+          field?.classList.add('field--has-value');
+        } else {
+          field?.classList.remove('field--has-value');
+        }
       } else {
-        field?.classList.remove('field--has-value');
+        // For text inputs
+        if (input.value && input.value.trim() !== '') {
+          field?.classList.add('field--has-value');
+        } else {
+          field?.classList.remove('field--has-value');
+        }
       }
     };
 
@@ -80,7 +94,7 @@ class CustomerAddresses {
       // Check initial value
       checkInput(input);
 
-      // Check on input
+      // Check on input/change
       input.addEventListener('input', () => checkInput(input));
       input.addEventListener('change', () => checkInput(input));
     });
