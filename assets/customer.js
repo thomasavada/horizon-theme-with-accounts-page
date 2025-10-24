@@ -18,6 +18,7 @@ class CustomerAddresses {
     if (Object.keys(this.elements).length === 0) return;
     this._setupCountries();
     this._setupEventListeners();
+    this._setupFloatingLabels();
   }
 
   _getElements() {
@@ -62,6 +63,29 @@ class CustomerAddresses {
     });
   }
 
+  _setupFloatingLabels() {
+    // Add class to fields with values for floating labels
+    const inputs = this.elements.container.querySelectorAll('.field__input');
+
+    const checkInput = (input) => {
+      const field = input.closest('.field');
+      if (input.value && input.value.trim() !== '') {
+        field?.classList.add('field--has-value');
+      } else {
+        field?.classList.remove('field--has-value');
+      }
+    };
+
+    inputs.forEach((input) => {
+      // Check initial value
+      checkInput(input);
+
+      // Check on input
+      input.addEventListener('input', () => checkInput(input));
+      input.addEventListener('change', () => checkInput(input));
+    });
+  }
+
   _toggleExpanded(target) {
     target.setAttribute(attributes.expanded, (target.getAttribute(attributes.expanded) === 'false').toString());
   }
@@ -83,3 +107,6 @@ class CustomerAddresses {
     }
   };
 }
+
+// Initialize when DOM is ready
+const customerAddresses = new CustomerAddresses();

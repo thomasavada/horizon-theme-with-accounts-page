@@ -491,7 +491,6 @@
   text-decoration: none;
   box-shadow: 0 0 0 0.1rem rgba(var(--color-link), 0.2);
   border: 0.1rem solid transparent;
-  font-size: 1.2rem;
   display: inline-block;
   margin-left: -1.5rem;
 }
@@ -679,19 +678,47 @@
 .addresses > div[data-address] {
   text-align: center;
   margin-bottom: 3rem;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.addresses li > button {
-  margin: 0;
-  background-color: transparent;
-  color: rgb(var(--color-foreground));
-  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
-  width: auto;
-  padding: 1rem 2rem;
+.addresses > div[data-address] > button {
+  width: auto !important;
+  display: inline-block;
+  margin: 0 auto;
 }
 
-.addresses li > button:hover {
-  border-color: rgba(var(--color-foreground), 0.4);
+.addresses > div[data-address] > div[id] {
+  margin-top: 2rem;
+  padding: 2rem;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  border-radius: var(--style-border-radius-inputs);
+  background: var(--color-background);
+  text-align: left;
+}
+
+.addresses > div[data-address] h2 {
+  text-align: left;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.addresses li > button,
+.addresses .address-buttons button {
+  margin: 0 !important;
+  background-color: transparent !important;
+  color: rgb(var(--color-foreground)) !important;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.2) !important;
+  width: auto !important;
+  padding: 1rem 2rem !important;
+  flex: 0 1 auto;
+}
+
+.addresses li > button:hover,
+.addresses .address-buttons button:hover {
+  border-color: rgba(var(--color-foreground), 0.4) !important;
+  background-color: rgba(var(--color-foreground), 0.05) !important;
 }
 
 .addresses li > button + button {
@@ -703,6 +730,7 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  margin-top: auto;
 }
 
 .addresses form button:first-of-type {
@@ -710,16 +738,27 @@
 }
 
 .addresses form button {
-  background-color: transparent;
-  color: rgb(var(--color-foreground));
-  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  background-color: transparent !important;
+  color: rgb(var(--color-foreground)) !important;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.2) !important;
+  width: auto !important;
+  margin: 1rem 0.5rem 0 0 !important;
+}
+
+.addresses form button:hover {
+  border-color: rgba(var(--color-foreground), 0.4) !important;
+  background-color: rgba(var(--color-foreground), 0.05) !important;
 }
 
 label[for='AddressCountryNew'],
-label[for='AddressProvinceNew'] {
+label[for='AddressProvinceNew'],
+label[for^='AddressCountry'],
+label[for^='AddressProvince'] {
   display: block;
   font-size: 1.4rem;
   margin-bottom: 0.6rem;
+  color: rgb(var(--color-foreground));
+  font-weight: 500;
 }
 
 .addresses form {
@@ -732,20 +771,66 @@ label[for='AddressProvinceNew'] {
   text-align: left;
 }
 
+.addresses form .field {
+  position: relative;
+}
+
+.addresses .field:not(.field--checkbox) .field__label {
+  position: absolute;
+  left: var(--input-padding-x);
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.2s ease;
+  pointer-events: none;
+  color: rgb(var(--color-input-text-rgb) / var(--opacity-80));
+  font-size: var(--font-paragraph--size);
+}
+
+.addresses .select {
+  position: relative;
+}
+
+.addresses .select select {
+  width: 100%;
+  padding: var(--input-padding);
+  border-radius: var(--style-border-radius-inputs);
+  border: none;
+  background-color: var(--color-input-background);
+  color: var(--color-input-text);
+  box-shadow: var(--input-box-shadow);
+  appearance: none;
+}
+
+.addresses .select .svg-wrapper {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  width: 1rem;
+  height: 1rem;
+}
+
 .addresses ul {
   list-style: none;
   padding-left: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: 1fr;
   gap: 2rem;
   max-width: 120rem;
-  margin: 0 auto;
-  margin-top: 3rem;
+  margin: 3rem auto 0 auto;
 }
 
 @media screen and (min-width: 750px) {
   .addresses ul {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2.5rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .addresses ul {
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   }
 }
 
@@ -759,11 +844,19 @@ li[data-address] {
   flex-direction: column;
   gap: 1.5rem;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
+  min-height: 20rem;
+  position: relative;
 }
 
 li[data-address]:hover {
   box-shadow: 0 0.4rem 1.2rem rgba(var(--color-foreground), 0.08);
   transform: translateY(-0.2rem);
+}
+
+/* When edit form is open, card should expand */
+li[data-address]:has([aria-expanded='true']) {
+  min-height: auto;
+  transform: none;
 }
 
 .addresses [aria-expanded='false'] ~ div[id] {
@@ -772,6 +865,61 @@ li[data-address]:hover {
 
 .addresses [aria-expanded='true'] ~ div[id] {
   display: block;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  text-align: left;
+}
+
+li[data-address] div[id] h2 {
+  text-align: left;
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+li[data-address] div[id] form {
+  margin-top: 0;
+}
+
+li[data-address] div[id] .field {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Floating label behavior for address forms */
+.addresses .field:not(.field--checkbox):focus-within .field__label,
+.addresses .field:not(.field--checkbox).field--has-value .field__label,
+.addresses .field:not(.field--checkbox) .field__input:focus + .field__label,
+.addresses .field:not(.field--checkbox) .field__input:not(:placeholder-shown) + .field__label,
+.addresses .field:not(.field--checkbox) .field__input:-webkit-autofill + .field__label {
+  top: -0.2rem;
+  font-size: 1.2rem;
+  transform: translateY(-100%);
+  padding-bottom: 0.4rem;
+  background-color: var(--color-background);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  left: calc(var(--input-padding-x) - 0.4rem);
+}
+
+/* For browsers that support :has() */
+.addresses .field:not(.field--checkbox):has(.field__input:not(:placeholder-shown)) .field__label,
+.addresses .field:not(.field--checkbox):has(.field__input:-webkit-autofill) .field__label {
+  top: -0.2rem;
+  font-size: 1.2rem;
+  transform: translateY(-100%);
+  padding-bottom: 0.4rem;
+  background-color: var(--color-background);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  left: calc(var(--input-padding-x) - 0.4rem);
+}
+
+li[data-address] div[id] button {
+  margin: 1rem 0.5rem 0 0 !important;
+  width: auto !important;
 }
 
 .addresses h2 {
@@ -801,9 +949,31 @@ li[data-address] > h2 {
   margin-bottom: 0;
 }
 
-.addresses input[type='checkbox'] {
+.addresses .field--checkbox {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin-top: 2rem;
-  margin-left: 0;
+  margin-bottom: 2rem;
+}
+
+.addresses .field--checkbox label {
+  position: static;
+  transform: none;
+  font-size: 1.4rem;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.addresses input[type='checkbox'] {
+  margin: 0;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 @media only screen and (min-width: 750px) {
